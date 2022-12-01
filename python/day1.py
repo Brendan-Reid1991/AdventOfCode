@@ -1,1 +1,1 @@
-### Day 1 - Weight Watchers
+### Day 1 - Calorie Counting
