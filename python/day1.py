@@ -89,7 +89,7 @@ class CalorieCounting:
     def __init__(self):
         self._elf_counter = 0
         self.calories_held = defaultdict(int)
-        for line in open(os.getcwd() + "/python/day1_input.txt", "r"):
+        for line in open(os.getcwd() + "/problem_specs/day1.txt", "r"):
             try:
                 self.calories_held[self._elf_counter] += literal_eval(line)
             except SyntaxError:
