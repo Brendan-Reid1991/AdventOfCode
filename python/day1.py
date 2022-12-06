@@ -111,3 +111,9 @@ class CalorieCounting:
         return [
             (key, val) for key, val in self.calories_held.items() if val in top_calories
         ]
+
+
+if __name__ == "__main__":
+    cc = CalorieCounting()
+    print(cc.part1())
+    print(cc.part2())
