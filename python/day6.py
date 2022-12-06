@@ -14,7 +14,8 @@
 # As if inspired by comedic timing, the device emits a few colorful sparks.
 
 # To be able to communicate with the Elves, the device needs to lock on to their signal.
-# The signal is a series of seemingly-random characters that the device receives one at a time.
+# The signal is a series of seemingly-random characters that the device receives
+# one at a time.
 
 # To fix the communication system, you need to add a subroutine to the device that
 # detects a start-of-packet marker in the datastream. In the protocol being used by the
