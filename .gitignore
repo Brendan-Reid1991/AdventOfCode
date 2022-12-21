@@ -12,3 +12,4 @@ rust/adventofcode/target/debug/build
 .rustc_info.json
 *.timestamp
 *.DS_Store
+.vscode
