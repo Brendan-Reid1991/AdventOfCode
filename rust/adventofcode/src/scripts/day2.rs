@@ -1,5 +1,4 @@
-// use std::collections::HashMap;
-use std::{
+use std::{fs,
     fs::File,
     io::{prelude::*, BufReader},
     path::Path,
@@ -33,14 +32,29 @@ fn lines_from_file(filename: impl AsRef<Path>) -> Vec<String> {
         .collect()
 }
 
-fn convert(play: &str) {
-    if ["X", "Y", "Z"].contains(&&play) {
-        return 1;
+
+fn convert(play: &str)->&str {
+    let xyz: Vec<&str> = vec!["X", "Y", "Z"];
+    let abc: Vec<&str> = vec!["A", "B", "C"];
+
+    if xyz.contains(&&play) {
+        return play
     } else {
-        return 2;
+        let idx = abc.iter().position(|&r| r == play).unwrap();
+        return xyz.iter().nth(idx).unwrap();
     }
 }
 
+fn outcome(player1: &str, player2: &str) -> u32 {
+
+}
+
 fn main() {
-    let _strategy_guide = lines_from_file("../problem_specs/day2.txt");
+
+    let file_path = fs::canonicalize("../../problem_specs/day2.txt");
+    let strategy_guide = lines_from_file(file_path.unwrap());
+    for line in strategy_guide.iter() {
+        let first_col = line.chars().nth(0).unwrap();
+        let second_col = line.chars().last().unwrap();
+    }
 }

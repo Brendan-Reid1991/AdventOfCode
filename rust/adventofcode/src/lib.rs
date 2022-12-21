@@ -1,2 +1,1 @@
-mod executables;
 mod scripts;

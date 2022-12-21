@@ -1,10 +1,11 @@
 use std::fs;
-use std::path::Path;
+// use std::path;
 
 fn main() {
-    let file_path = Path::new("/../../problem_specs/day1.txt");
 
-    let file_contents = fs::read_to_string(file_path).expect("Error reading file");
+    let file_path = fs::canonicalize("../../problem_specs/day1.txt");
+
+    let file_contents = fs::read_to_string(file_path.unwrap()).expect("Error reading file");
 
     let mut all_calories_held: Vec<i32> = Vec::new();
     let mut calories_held = 0;

@@ -1,0 +1,14 @@
+*.o
+*.bin
+*.TAG
+*.d
+*.rlib
+*.cargo-lock
+rust/adventofcode/target/debug/.fingerprint
+rust/adventofcode/target/debug/deps
+rust/adventofcode/target/debug/examples
+rust/adventofcode/target/debug/incremental
+rust/adventofcode/target/debug/build
+.rustc_info.json
+*.timestamp
+*.DS_Store
