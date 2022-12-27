@@ -40,13 +40,14 @@ fn convert(play: String)->String {
 
     if xyz.contains(&play) {
         let idx = xyz.iter().position(|r| r == &play).unwrap();
-        let equiv_play: String = rps.iter().nth(idx).unwrap().to_string();
-        return equiv_play
+        let equiv_play: String = rps.get(idx).unwrap().to_string();
+        equiv_play
     } else {
         let idx = abc.iter().position(|r| r == &play).unwrap();
-        let equiv_play: String = rps.iter().nth(idx).unwrap().to_string();
-        return equiv_play
-    };
+        let equiv_play: String = rps.get(idx).unwrap().to_string();
+        equiv_play
+    }
+
 
 }
 
@@ -57,18 +58,18 @@ fn outcome(player1: String, player2: String) -> i8 {
     } else if vec![1, -2].contains(&score) {
         return 6 + SCORE[&player2]
     } else if vec![-1, 2].contains(&score) {
-        return 0 + SCORE[&player2]
+        return SCORE[&player2]
     };
     panic!("Invalid game outcomes.")
 }
 
 fn tactics(opponent: String, instructions: String) -> String {
     if instructions.eq(&"X".to_string()) {
-        return LOSING_STRAT[&opponent].to_string()
+        LOSING_STRAT[&opponent].to_string()
     } else if instructions.eq(&"Z".to_string()) {
-        return WINNING_STRAT[&opponent].to_string()
+        WINNING_STRAT[&opponent].to_string()
     } else {
-        return opponent
+        opponent
     }
 }
 
@@ -78,7 +79,7 @@ fn part1() {
     let strategy_guide = lines_from_file(file_path.unwrap());
     let mut score = Vec::new();
     for line in strategy_guide.iter() {
-        let first_col = convert(line.chars().nth(0).unwrap().to_string());
+        let first_col = convert(line.chars().next().unwrap().to_string());
         let second_col = convert(line.chars().last().unwrap().to_string());
         score.push(outcome(first_col, second_col));
     };
