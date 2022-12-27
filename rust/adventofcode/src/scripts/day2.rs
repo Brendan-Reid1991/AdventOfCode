@@ -6,7 +6,7 @@ use std::{fs,
 
 use phf::phf_map;
 
-static SCORE: phf::Map<&'static str, u32> = phf_map! {
+static SCORE: phf::Map<&'static str, i8> = phf_map! {
     "Rock" => 1,
     "Paper" => 2,
     "Scissors" => 3,
@@ -32,29 +32,76 @@ fn lines_from_file(filename: impl AsRef<Path>) -> Vec<String> {
         .collect()
 }
 
+fn convert(play: String)->String {
+    let xyz: Vec<String> = ["X", "Y", "Z"].map(String::from).to_vec();
+    let abc: Vec<String> = ["A", "B", "C"].map(String::from).to_vec();
 
-fn convert(play: &str)->&str {
-    let xyz: Vec<&str> = vec!["X", "Y", "Z"];
-    let abc: Vec<&str> = vec!["A", "B", "C"];
+    let rps: Vec<String> = ["Rock", "Paper", "Scissors"].map(String::from).to_vec();
 
-    if xyz.contains(&&play) {
-        return play
+    if xyz.contains(&play) {
+        let idx = xyz.iter().position(|r| r == &play).unwrap();
+        let equiv_play: String = rps.iter().nth(idx).unwrap().to_string();
+        return equiv_play
     } else {
-        let idx = abc.iter().position(|&r| r == play).unwrap();
-        return xyz.iter().nth(idx).unwrap();
+        let idx = abc.iter().position(|r| r == &play).unwrap();
+        let equiv_play: String = rps.iter().nth(idx).unwrap().to_string();
+        return equiv_play
+    };
+
+}
+
+fn outcome(player1: String, player2: String) -> i8 {
+    let score: i8 = SCORE[&player2] - SCORE[&player1];
+    if score == 0 {
+       return 3 + SCORE[&player2]
+    } else if vec![1, -2].contains(&score) {
+        return 6 + SCORE[&player2]
+    } else if vec![-1, 2].contains(&score) {
+        return 0 + SCORE[&player2]
+    };
+    panic!("Invalid game outcomes.")
+}
+
+fn tactics(opponent: String, instructions: String) -> String {
+    if instructions.eq(&"X".to_string()) {
+        return LOSING_STRAT[&opponent].to_string()
+    } else if instructions.eq(&"Z".to_string()) {
+        return WINNING_STRAT[&opponent].to_string()
+    } else {
+        return opponent
     }
 }
 
-fn outcome(player1: &str, player2: &str) -> u32 {
-
-}
-
-fn main() {
+fn part1() {
 
     let file_path = fs::canonicalize("../../problem_specs/day2.txt");
     let strategy_guide = lines_from_file(file_path.unwrap());
+    let mut score = Vec::new();
     for line in strategy_guide.iter() {
-        let first_col = line.chars().nth(0).unwrap();
-        let second_col = line.chars().last().unwrap();
-    }
+        let first_col = convert(line.chars().nth(0).unwrap().to_string());
+        let second_col = convert(line.chars().last().unwrap().to_string());
+        score.push(outcome(first_col, second_col));
+    };
+    println!("{}", score.iter().map(|i| (*i) as u32).sum::<u32>())
+}
+
+fn part2() {
+
+    let file_path = fs::canonicalize("../../problem_specs/day2.txt");
+    let strategy_guide = lines_from_file(file_path.unwrap());
+    let mut score = Vec::new();
+    for line in strategy_guide.iter() {
+        let first_col = convert(line.chars().nth(0).unwrap().to_string());
+        let copy = first_col.clone();
+        let second_col = line.chars().last().unwrap().to_string();
+        let my_play = tactics(first_col, second_col);
+        score.push(outcome(copy, my_play));
+    };
+    println!("{}", score.iter().map(|i| (*i) as u32).sum::<u32>())
+}
+
+
+fn main() {
+    part1();
+    part2();
 }
