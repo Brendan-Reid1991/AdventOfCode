@@ -73,10 +73,7 @@ fn tactics(opponent: String, instructions: String) -> String {
     }
 }
 
-fn part1() {
-
-    let file_path = fs::canonicalize("../../problem_specs/day2.txt");
-    let strategy_guide = lines_from_file(file_path.unwrap());
+fn part1(strategy_guide: Vec<String>) {
     let mut score = Vec::new();
     for line in strategy_guide.iter() {
         let first_col = convert(line.chars().next().unwrap().to_string());
@@ -86,10 +83,7 @@ fn part1() {
     println!("{}", score.iter().map(|i| (*i) as u32).sum::<u32>())
 }
 
-fn part2() {
-
-    let file_path = fs::canonicalize("../../problem_specs/day2.txt");
-    let strategy_guide = lines_from_file(file_path.unwrap());
+fn part2(strategy_guide: Vec<String>) {
     let mut score = Vec::new();
     for line in strategy_guide.iter() {
         let first_col = convert(line.chars().nth(0).unwrap().to_string());
@@ -101,8 +95,12 @@ fn part2() {
     println!("{}", score.iter().map(|i| (*i) as u32).sum::<u32>())
 }
 
-
 fn main() {
-    part1();
-    part2();
+    let file_path = fs::canonicalize("../../problem_specs/day2.txt");
+    let strategy_guide: Vec<String> = lines_from_file(file_path.unwrap());
+
+    let strategy_guide_copy = strategy_guide.clone();
+
+    part1(strategy_guide);
+    part2(strategy_guide_copy);
 }

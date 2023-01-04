@@ -8,6 +8,7 @@ edition = "2021"
 [dependencies]
 path-clean = "0.1.0"
 phf = {version="0.11.1", features = ["macros"]}
+lazy_static = "1.4.0"
 
 [[bin]]
 name = "day1"
@@ -18,5 +19,11 @@ bench=false
 [[bin]]
 name = "day2"
 path="src/scripts/day2.rs"
+test=false
+bench=false
+
+[[bin]]
+name = "day3"
+path="src/scripts/day3.rs"
 test=false
 bench=false
