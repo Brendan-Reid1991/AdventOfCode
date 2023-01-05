@@ -8,11 +8,6 @@ fn lines_from_file(filename: impl AsRef<Path>) -> Vec<String> {
         .collect()
 }
 
-// struct Pair {
-//     assignment1: Vec<u16>,
-//     assignment2: Vec<u16>,
-// }
-
 fn parse_line(assignments: &String) -> (Vec<u16>, Vec<u16>) {
     let individual_assignments: Vec<&str> = assignments.split(",").collect();
     assert_eq!(individual_assignments.len(), 2);

@@ -34,3 +34,9 @@ name = "day4"
 path="src/scripts/day4.rs"
 test=false
 bench=false
+
+[[bin]]
+name = "day5"
+path="src/scripts/day5.rs"
+test=false
+bench=false
