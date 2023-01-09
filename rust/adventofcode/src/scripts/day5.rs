@@ -1,4 +1,4 @@
-use std::{ fs, fs::File, io::{ prelude::*, BufReader }, path::Path, str };
+use std::{ fs, fs::File, io::{ prelude::*, BufReader }, path::Path };
 
 use itertools::Itertools;
 
@@ -79,8 +79,11 @@ fn parse_instruction(instr: &String) -> Vec<u32> {
 }
 
 fn update_crate_configuration(configuration: Vec<Vec<String>>, instr: &String) -> () {
-    let (_move, _from, _to) = parse_instruction(instr).iter().next_tuple().unwrap();
-    println!("{}, {}, {}", _move, _from, _to)
+    let mut config = configuration;
+    let commands = parse_instruction(instr);
+    let (_move, _from, _to) = commands.iter().next_tuple().unwrap();
+    println!("{:?}", config[(*_from - 1) as usize]);
+    let items: Vec<&str> = config[(_from - 1) as usize][0..*_move];
 }
 
 fn main() {
@@ -96,8 +99,6 @@ fn main() {
     let manifest: Containers = Containers {
         stack_config: _stacks,
     };
-    let mut config = manifest.initial_configuration();
-    for instr in _instructions.iter() {
-        update_crate_configuration(config, instr);
-    }
+    let config = manifest.initial_configuration();
+    update_crate_configuration(config, &_instructions[0]);
 }
