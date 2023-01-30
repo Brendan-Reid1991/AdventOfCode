@@ -90,11 +90,10 @@ class CalorieCounting:
         self._elf_counter = 0
         self.calories_held = defaultdict(int)
         for line in open(os.getcwd() + "/../../problem_specs/day1.txt", "r"):
-            try:
-                self.calories_held[self._elf_counter] += literal_eval(line)
-            except SyntaxError:
+            if not line.strip():
                 self._elf_counter += 1
                 continue
+            self.calories_held[self._elf_counter] += literal_eval(line)
 
     def part1(self):
         """Literally the first solution that came into my head."""
@@ -108,9 +107,9 @@ class CalorieCounting:
     def top_elves(self, num):
         """Top. Elves."""
         top_calories = sorted(self.calories_held.values(), reverse=True)[0:num]
-        return [
+        return (
             (key, val) for key, val in self.calories_held.items() if val in top_calories
-        ]
+        )
 
 
 if __name__ == "__main__":
